@@ -9,12 +9,10 @@ Comment.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+        autoIncrement: true
     },
     comment_text: {
         type: DataTypes.STRING,
-        allowNull: false,
         validate: {
 
             len: [3]
@@ -22,23 +20,23 @@ Comment.init({
     },
     user_id: {
         type: DataTypes.INTEGER,
-       references: {
+        allowNull: false,
+        references: {
             model: 'user',
             key: 'id'
         }
     },
     post_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
             model: 'post',
             key: 'id'
         }
     }
-},
-{
+}, {
     sequelize,
     freezeTableName: true,
     modelName: 'comment'
 });
-
 module.exports = Comment;
