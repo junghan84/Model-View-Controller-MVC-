@@ -26,22 +26,21 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-
-   Post.create(req.body)
+    console.log(req.body);
+    console.log(req.session.id);
+ 
+   Post.create({
+     title: req.body.title,
+     content: req.body.content,
+     user_id: req.session.id
+   })
            .then(dbpostData => {
-             req.session.save(() =>{
-               req.session.id = dbpostData.id; //useing line31
-               req.session.username = dbpostData.username;
-               req.session.logged_in = true;
-
-               res.status(200).json(dbpostData);
-             })
+             res.status(200).json(err)            
            })
            .catch(err => {
                console.log(err);
                res.status(400).json(err);
            })
-
 });
 
 module.exports = router;
